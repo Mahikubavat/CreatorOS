@@ -9,3 +9,5 @@ const TransactionSchema = new Schema({
   date: { type: Date, default: Date.now },
   description: { type: String }
 }, { timestamps: true });
+
+module.exports = mongoose.models.Transaction || mongoose.model('Transaction', TransactionSchema);

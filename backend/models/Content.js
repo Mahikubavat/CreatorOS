@@ -17,3 +17,5 @@ const ContentSchema = new Schema({
   },
   publishDate: { type: Date } // Null if unscheduled
 }, { timestamps: true });
+
+module.exports = mongoose.models.Content || mongoose.model('Content', ContentSchema);

@@ -9,3 +9,5 @@ const TaskSchema = new Schema({
   status: { type: String, enum: ['Active', 'Completed'], default: 'Active' },
   contentId: { type: Schema.Types.ObjectId, ref: 'Content', default: null } // Optional content link
 }, { timestamps: true });
+
+module.exports = mongoose.models.Task || mongoose.model('Task', TaskSchema);
