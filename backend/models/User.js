@@ -18,4 +18,4 @@ const UserSchema = new Schema({
   preferredBaseCurrency: { type: String, default: 'USD' }
 }, { timestamps: true });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

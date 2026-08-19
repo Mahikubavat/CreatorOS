@@ -18,3 +18,5 @@ const SponsorshipSchema = new Schema({
   },
   dueDate: { type: Date }
 }, { timestamps: true });
+
+module.exports = mongoose.models.Sponsorship || mongoose.model('Sponsorship', SponsorshipSchema);
