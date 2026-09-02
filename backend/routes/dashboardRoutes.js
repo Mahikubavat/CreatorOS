@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const financeCtrl = require('../controllers/financeController');
+const dashboardCtrl = require('../controllers/dashboardController');
+const { protect } = require('../middleware/auth');
 
-// R.4 Requirements
-router.post('/transaction', financeCtrl.addTransaction);
-router.get('/profit', financeCtrl.getMonthlyProfit);
-router.post('/sponsorship', financeCtrl.createSponsorship);
-router.get('/sponsorship', financeCtrl.getSponsorships);
+router.use(protect);
+
+router.get('/overview', dashboardCtrl.getOverview);
+router.get('/content-analytics', dashboardCtrl.getContentAnalytics);
 
 module.exports = router;

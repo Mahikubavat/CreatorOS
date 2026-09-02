@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const taskCtrl = require('../controllers/taskController');
+const { protect } = require('../middleware/auth');
 
-// R.3 Requirements
+router.use(protect);
+
 router.post('/', taskCtrl.createTask);
 router.get('/', taskCtrl.getTasks);
 router.put('/:id', taskCtrl.updateTask);
 router.delete('/:id', taskCtrl.deleteTask);
 router.post('/timeblock', taskCtrl.createTimeBlock);
+router.get('/timeblock', taskCtrl.getTimeBlocks);
 
 module.exports = router;
