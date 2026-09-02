@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -10,4 +11,18 @@ const TaskSchema = new Schema({
   contentId: { type: Schema.Types.ObjectId, ref: 'Content', default: null } // Optional content link
 }, { timestamps: true });
 
+=======
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const TaskSchema = new Schema({
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+  title: { type: String, required: true, trim: true },
+  dueDate: { type: Date },
+  priority: { type: String, enum: ['Low', 'Medium', 'High'], default: 'Medium' },
+  status: { type: String, enum: ['Active', 'Completed'], default: 'Active' },
+  contentId: { type: Schema.Types.ObjectId, ref: 'Content', default: null } // Optional content link
+}, { timestamps: true });
+
+>>>>>>> 36f0ca9d4ee803daab395736d0e8470b32ab600f
 module.exports = mongoose.models.Task || mongoose.model('Task', TaskSchema);

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
@@ -26,4 +27,26 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
+=======
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const UserSchema = new Schema({
+  fullName: { type: String, required: true, trim: true },
+  email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  password: { type: String, required: true },
+  contentNiche: { type: String, required: true },
+  displayName: { type: String, trim: true },
+  bio: { type: String, maxLength: 500 },
+  profilePicture: { type: String, default: '' },
+  socialMediaLinks: {
+    youtube: { type: String, default: '' },
+    tiktok: { type: String, default: '' },
+    instagram: { type: String, default: '' },
+    blog: { type: String, default: '' }
+  },
+  preferredBaseCurrency: { type: String, default: 'USD' }
+}, { timestamps: true });
+
+>>>>>>> 36f0ca9d4ee803daab395736d0e8470b32ab600f
 module.exports = mongoose.models.User || mongoose.model('User', UserSchema);
