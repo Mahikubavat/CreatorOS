@@ -48,11 +48,29 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true, runValidators: true }).select('-password');
+    const allowed = ['fullName','displayName','bio','profilePicture','socialMediaLinks','preferredBaseCurrency','contentNiche'];
+    const upd = {};
+    allowed.forEach(k => { if (req.body[k] !== undefined) upd[k] = req.body[k]; });
+    const user = await User.findByIdAndUpdate(req.user.id, upd, { new: true, runValidators: true }).select('-password');
     res.status(200).json({ success: true, data: user });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }
 };
 
-module.exports = { register, login, getProfile, updateProfile };
+const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    if (!newPassword || newPassword.length < 6) return res.status(400).json({ success: false, error: 'New password must be at least 6 characters' });
+    if (newPassword !== confirmPassword) return res.status(400).json({ success: false, error: 'Passwords do not match' });
+    const user = await User.findById(req.user.id);
+    if (!user || !(await user.matchPassword(currentPassword))) return res.status(400).json({ success: false, error: 'Current password is incorrect' });
+    user.password = newPassword;
+    await user.save();
+    res.status(200).json({ success: true, message: 'Password updated successfully' });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+};
+
+module.exports = { register, login, getProfile, updateProfile, changePassword };

@@ -3,12 +3,10 @@ const router = express.Router();
 const userCtrl = require('../controllers/userController');
 const { protect } = require('../middleware/auth');
 
-// Public authentication routes
 router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);
-
-// Protected user profile routes
-router.get('/profile', protect, userCtrl.getProfile);
+router.get('/me', protect, userCtrl.getProfile);
+router.put('/password', protect, userCtrl.changePassword);
 router.put('/profile', protect, userCtrl.updateProfile);
 
 module.exports = router;

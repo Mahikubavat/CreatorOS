@@ -11,5 +11,6 @@ router.put('/:id', taskCtrl.updateTask);
 router.delete('/:id', taskCtrl.deleteTask);
 router.post('/timeblock', taskCtrl.createTimeBlock);
 router.get('/timeblock', taskCtrl.getTimeBlocks);
+router.delete('/timeblock/:id', taskCtrl.deleteTimeBlock);
 
 module.exports = router;

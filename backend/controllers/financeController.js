@@ -56,14 +56,45 @@ const getSponsorships = async (req, res) => {
 
 const getUserTransactions = async (req, res) => {
   try {
-    const transactions = await Transaction.find({ userId: req.user.id });
+    const transactions = await Transaction.find({ userId: req.user.id }).sort({ date: -1 });
     res.status(200).json({ success: true, count: transactions.length, data: transactions });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 };
 
+const deleteTransaction = async (req, res) => {
+  try {
+    await Transaction.findOneAndDelete({ _id: req.params.id, userId: req.user.id });
+    res.status(200).json({ success: true, data: {} });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+const updateSponsorship = async (req, res) => {
+  try {
+    const deal = await Sponsorship.findOneAndUpdate({ _id: req.params.id, userId: req.user.id }, req.body, { new: true, runValidators: true });
+    if (!deal) return res.status(404).json({ success: false, error: 'Deal not found' });
+    res.status(200).json({ success: true, data: deal });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+};
+
+const deleteSponsorship = async (req, res) => {
+  try {
+    await Sponsorship.findOneAndDelete({ _id: req.params.id, userId: req.user.id });
+    res.status(200).json({ success: true, data: {} });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
 module.exports = {
+  deleteTransaction,
+  updateSponsorship,
+  deleteSponsorship,
   addTransaction,
   getMonthlyProfit,
   createSponsorship,
