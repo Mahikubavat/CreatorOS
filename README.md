@@ -1,31 +1,31 @@
 ```markdown
 # CreatorOS — All-in-One Creator Workspace
 
-**CreatorOS** is a complete management platform built on the MERN stack (MongoDB, Express.js, React, Node.js) designed for digital creators, podcasters, and media entrepreneurs. Inspired by high-volume creators like Raj Shamani, CreatorOS streamlines content production, daily schedules, brand deal pipelines, and channel financial tracking into a single dashboard.
+CreatorOS is a complete management platform built on the MERN stack (MongoDB, Express.js, React, Node.js) designed for digital creators, podcasters, and media entrepreneurs. Inspired by high-volume creators like Raj Shamani, CreatorOS streamlines content production, daily schedules, brand deal pipelines, and channel financial tracking into a single dashboard.
 
 ---
 
 ##  Features
 
-###  Profile & Account Management
-* **Custom Creator Identity:** Support for creator bios, niche settings, display names, and profile avatars.
-* **Multi-Platform Integration:** Direct links for YouTube, Instagram, TikTok, and personal websites/blogs.
-* **Multi-Currency Support:** Global currency toggling (e.g., INR ₹, USD $).
+#  Profile & Account Management
+* Custom Creator Identity: Support for creator bios, niche settings, display names, and profile avatars.
+* Multi-Platform Integration: Direct links for YouTube, Instagram, TikTok, and personal websites/blogs.
+* Multi-Currency Support: Global currency toggling (e.g., INR ₹, USD $).
 
-###  Content Production Board & Calendar
-* **Kanban Workflow:** Drag-and-drop or status-based pipeline tracking across **Idea**, **Scripting**, **Editing**, **Scheduled**, and **Published** stages.
-* **Multi-Platform Support:** Categorize content by platform (YouTube, Instagram, TikTok, Blog, and custom channels).
-* **Interactive Calendar:** Visual schedule view to plan upcoming upload dates and avoid bottlenecks.
+#  Content Production Board & Calendar
+* kanban Workflow: Drag-and-drop or status-based pipeline tracking across **Idea**, **Scripting**, **Editing**, **Scheduled**, and **Published** stages.
+* Multi-Platform Support: Categorize content by platform (YouTube, Instagram, TikTok, Blog, and custom channels).
+* Interactive Calendar: Visual schedule view to plan upcoming upload dates and avoid bottlenecks.
 
-###  Tasks & Daily Routine (Time Block Planner)
-* **Smart Task Allocation:** Priority tags (High, Medium, Low) and direct linkage between tasks and specific content items.
-* **Time Blocking:** Hourly time-block planner to structure daily deep work, filming, and strategic meetings.
+#  Tasks & Daily Routine (Time Block Planner)
+* Smart Task Allocation: Priority tags (High, Medium, Low) and direct linkage between tasks and specific content items.
+* Time Blocking: Hourly time-block planner to structure daily deep work, filming, and strategic meetings.
 
-###  Finance & Sponsorship Pipeline
-* **Financial Ledger:** Income and expense ledger with automatic net profit calculations.
-* **Sponsorship CRM:** Track brand deals across custom pipeline stages (**Lead**, **Negotiating**, **Contract Signed**, **Completed**, **Cancelled**) and payment statuses (**Pending**, **Paid**).
+#  Finance & Sponsorship Pipeline
+* Financial Ledger: Income and expense ledger with automatic net profit calculations.
+* Sponsorship CRM: Track brand deals across custom pipeline stages (**Lead**, **Negotiating**, **Contract Signed**, **Completed**, **Cancelled**) and payment statuses (Pending, Paid).
 
-###  Analytics Dashboard
+#  Analytics Dashboard
 * High-level visual metrics on subscriber growth, revenue trends, and channel performance.
 
 ---
@@ -63,16 +63,16 @@ MERN_PROJECT/
 
 ##  Tech Stack
 
-* **Frontend:** React.js, Vite, CSS3 / Modern UI frameworks
-* **Backend:** Node.js, Express.js
-* **Database:** MongoDB & Mongoose ORM
-* **Process Management:** `concurrently` (runs backend and frontend simultaneously)
+* Frontend: React.js, Vite, CSS3 / Modern UI frameworks
+* Backend: Node.js, Express.js
+* Database: MongoDB & Mongoose ORM
+* Process Management: `concurrently` (runs backend and frontend simultaneously)
 
 ---
 
 ##  Quick Start
 
-### 1. Prerequisites
+# 1. Prerequisites
 
 Ensure you have the following installed locally:
 
@@ -80,7 +80,7 @@ Ensure you have the following installed locally:
 * [npm](https://www.npmjs.com/)
 * [MongoDB](https://www.mongodb.com/) (Local instance or MongoDB Atlas URL)
 
-### 2. Installation & Setup
+# 2. Installation & Setup
 
 Clone the repository to your local machine:
 
@@ -109,7 +109,7 @@ cd ..
 
 ```
 
-### 3. Environment Variables
+# 3. Environment Variables
 
 Create a `.env` file inside the `backend/` directory based on `backend/.env.example`:
 
@@ -120,7 +120,7 @@ JWT_SECRET=your_jwt_secret_key
 
 ```
 
-### 4. Seed Demonstration Data (Optional)
+# 4. Seed Demonstration Data (Optional)
 
 To populate the app with pre-filled demo data (Raj Shamani profile, sample videos, tasks, and brand deals):
 
@@ -131,7 +131,7 @@ cd ..
 
 ```
 
-### 5. Running the Application
+# 5. Running the Application
 
 From the root project directory, run both the backend and frontend simultaneously with a single command:
 
@@ -140,8 +140,8 @@ npm run dev
 
 ```
 
-* **Frontend App:** `http://localhost:5173`
-* **Backend API:** `http://localhost:5000`
+* Frontend App: `http://localhost:5173`
+* Backend API: `http://localhost:5000`
 
 ---
 
