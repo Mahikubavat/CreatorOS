@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { api, setToken, USE_BACKEND } from './api';
 import AuthForm from './AuthForm';
 import { Dashboard, ContentTab, TasksTab, FinanceTab, AnalyticsTab, ProfileTab } from './Views';
@@ -6,6 +7,9 @@ import { Dashboard, ContentTab, TasksTab, FinanceTab, AnalyticsTab, ProfileTab }
 // separate saved logins for browser-only mode and backend mode so they never mix
 const SESSION_KEY = USE_BACKEND ? 'creatoros_session' : 'creatoros_session_local';
 const TABS = ['Dashboard', 'Content', 'Tasks', 'Finance', 'Analytics'];
+const TAB_PATHS = { Dashboard: '/dashboard', Content: '/content', Tasks: '/tasks', Finance: '/finance', Analytics: '/analytics', Profile: '/profile' };
+const PATH_TABS = Object.fromEntries(Object.entries(TAB_PATHS).map(([tab, path]) => [path, tab]));
+const AUTH_PATHS = ['/login', '/register'];
 const SUBTITLES = {
   Content: 'Plan, script and schedule your videos',
   Tasks: 'Your to-dos and time blocks',
@@ -57,12 +61,15 @@ function ProfileMenu({ user, active, onEdit, onLogout }) {
 }
 
 export default function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [session, setSession] = useState(() => {
     const s = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
     if (s) setToken(s.token);
     return s;
   });
-  const [tab, setTab] = useState('Dashboard');
+  const tab = PATH_TABS[location.pathname] || 'Dashboard';
+  const setTab = (nextTab) => navigate(TAB_PATHS[nextTab] || '/dashboard');
   const [data, setData] = useState({ content: [], tasks: [], blocks: [], tx: [], deals: [] });
   const [err, setErr] = useState('');
 
@@ -81,12 +88,16 @@ export default function App() {
   }, []);
 
   useEffect(() => { if (session) reload(); }, [session?.token]);
+  useEffect(() => {
+    if (session && !PATH_TABS[location.pathname]) navigate('/dashboard', { replace: true });
+    else if (!session && !AUTH_PATHS.includes(location.pathname)) navigate('/login', { replace: true });
+  }, [session, location.pathname, navigate]);
 
   const user = session?.user;
   const cur = { USD: '$', EUR: '€', GBP: '£', INR: '₹', JPY: '¥', CAD: 'C$', AUD: 'A$' }[user?.preferredBaseCurrency || 'USD'] || '$';
   const p = { data, reload, cur, user };
 
-  if (!session) return <AuthForm onAuthed={onAuthed} />;
+  if (!session) return <AuthForm initialMode={location.pathname === '/register' ? 'register' : 'login'} onModeChange={(mode) => navigate(`/${mode}`)} onAuthed={onAuthed} />;
 
   const first = (user.displayName || user.fullName || 'creator').split(' ')[0];
   const title = tab === 'Dashboard' ? `Hello ${first}` : tab === 'Profile' ? 'Your profile' : tab;

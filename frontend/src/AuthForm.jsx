@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from './api';
 
 
@@ -43,11 +43,13 @@ function HeroArt() {
   );
 }
 
-export default function AuthForm({ onAuthed }) {
-  const [mode, setMode] = useState('login'); // 'login' | 'register'
+export default function AuthForm({ onAuthed, initialMode = 'login', onModeChange }) {
+  const [mode, setMode] = useState(initialMode); // 'login' | 'register'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => { setMode(initialMode); }, [initialMode]);
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -69,6 +71,11 @@ export default function AuthForm({ onAuthed }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const switchMode = (nextMode) => {
+    setMode(nextMode);
+    onModeChange?.(nextMode);
   };
 
   return (
@@ -144,9 +151,9 @@ export default function AuthForm({ onAuthed }) {
 
       <div className="switch-line">
         {mode === 'login' ? (
-          <>Don't have an account? <button onClick={() => setMode('register')}>Register</button></>
+          <>Don't have an account? <button onClick={() => switchMode('register')}>Register</button></>
         ) : (
-          <>Already have an account? <button onClick={() => setMode('login')}>Log in</button></>
+          <>Already have an account? <button onClick={() => switchMode('login')}>Log in</button></>
         )}
       </div>
       </div>
